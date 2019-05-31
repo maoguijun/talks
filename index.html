@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>游戏</title>
+    <style>
+      body {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+      }
+      .container {
+        transform: rotateX(20deg);
+        width: 800px;
+        height: 800px;
+        position: absolute;
+        left: 400px;
+        margin: 100px auto;
+        transform-origin: 50% 50%;
+      }
+      .wrap {
+        width: 100%;
+        height: 100%;
+        transform: rotateX(-20deg) rotateY(90deg);
+        border-radius: 50%;
+        transform-origin: 50% 50%;
+        /*transform-style ：保留子元素3d位置*/
+        transform-style: preserve-3d;
+        transition: transform 2s;
+      }
+      .wrap .circle {
+        border: 2px solid #e0301e;
+        width: 100%;
+        height: 100%;
+        transform-origin: 50% 50%;
+        border-radius: 50%;
+        transform: rotateY(180deg) rotateX(90deg);
+        transform-style: preserve-3d;
+      }
+      .wrap .card-wrap {
+        /* border: 2px solid #000; */
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0px;
+        border-radius: 50%;
+        transform: rotateY(180deg) rotateX(90deg);
+        transform-origin: 50% 50%;
+        transform-style: preserve-3d;
+      }
+      .wrap .item {
+        width: 100px;
+        height: 100px;
+        background: #e0301e;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50% -50%);
+        perspective: 0px;
+        color: #fff;
+        font-size: 80px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <div class="parent"> -->
+    <div class="container">
+      <div class="wrap">
+        <div class="circle">
+          <div class="card-wrap"></div>
+        </div>
+      </div>
+    </div>
+    <!-- </div> -->
+
+    <script>
+      const wrap = document.querySelector(".wrap");
+      const circle = document.querySelector(".circle");
+      const cardWrap = document.querySelector(".card-wrap");
+
+      let search = window.location.search;
+      let itemList = [];
+      if (search) {
+        console.log(search);
+        itemList = search.replace("?", "").split(/[,，]/gi);
+        console.log(itemList);
+      } else {
+        itemList = ["小", "游", "戏", "欢", "迎", "你"];
+      }
+
+      let html = "";
+      itemList.forEach((item, index) => {
+        html += `<div style="transform:translate(-50%,-50%) rotatey(${360 /
+          itemList.length +
+          (index * 360) /
+            itemList.length}deg) translatez(400px)" class="item item-${index}">${item}</div>`;
+      });
+      cardWrap.innerHTML = html;
+      // wrap.style.transition = `transform ${2 / itemList.length}s`;
+      let deg = 0;
+      const run = () => {
+        deg -= 360 / itemList.length;
+        wrap.style.transform = `rotateX(-20deg) rotateY(${deg}deg)`;
+
+        setTimeout(run, 2000);
+      };
+      run();
+    </script>
+  </body>
+</html>
