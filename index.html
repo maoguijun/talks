@@ -13,10 +13,10 @@
       }
       .container {
         transform: rotateX(20deg);
-        width: 800px;
-        height: 800px;
-        position: absolute;
-        left: 400px;
+        width: 80vmin;
+        height: 80vmin;
+        /* position: absolute; */
+        /* left: 400px; */
         margin: 100px auto;
         transform-origin: 50% 50%;
       }
@@ -43,8 +43,8 @@
         /* border: 2px solid #000; */
         width: 100%;
         height: 100%;
-        position: absolute;
-        left: 0px;
+        /* position: absolute;
+        left: 0px; */
         border-radius: 50%;
         transform: rotateY(180deg) rotateX(90deg);
         transform-origin: 50% 50%;
@@ -85,6 +85,8 @@
       let itemList = [];
       if (search) {
         console.log(search);
+        search = decodeURI(search);
+        console.log(89, search);
         itemList = search.replace("?", "").split(/[,，]/gi);
         console.log(itemList);
       } else {
@@ -96,7 +98,7 @@
         html += `<div style="transform:translate(-50%,-50%) rotatey(${360 /
           itemList.length +
           (index * 360) /
-            itemList.length}deg) translatez(400px)" class="item item-${index}">${item}</div>`;
+            itemList.length}deg) translatez(40vmin)" class="item item-${index}">${item}</div>`;
       });
       cardWrap.innerHTML = html;
       // wrap.style.transition = `transform ${2 / itemList.length}s`;
